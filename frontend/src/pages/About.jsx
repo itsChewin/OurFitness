@@ -4,7 +4,7 @@ import Calendar from '../components/Calendar';
 function About() {
   return (
     <>
-    <Calendar/>
+    
     </>
   )
 }

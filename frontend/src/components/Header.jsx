@@ -15,7 +15,7 @@ import { NavLink } from "react-router-dom";
 import "../components/Header.css";
 
 const PAGES = [
-  { label: "Home", link: "/home" },
+  { label: "Home", link: "/" },
   { label: "About", link: "/about" },
   { label: "Sign in", link: "/signin" },
   { label: "Sign up", link: "/signup" },
