@@ -61,7 +61,9 @@ function Home() {
           We are the web app that can help you to tracking you workout. We
           allows users to set goals and track your process.
         </Typography>
-        <Grid container spacing={3}>
+
+
+        <Grid container spacing={2} marginBottom={'100px'}>
           <Grid item xs={12} sm={6} md={4}>
             <Card>
               <CardMedia
@@ -120,6 +122,7 @@ function Home() {
             </Card>
           </Grid>
         </Grid>
+
       </Container>
     </>
   );

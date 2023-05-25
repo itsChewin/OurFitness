@@ -2,8 +2,7 @@ import { ExpressTypeIntecepter } from '../services/ExpressTypeService.js';
 import { getPrisma, handlePrismaError } from '../services/PrismaService.js';
 import { ErrorResponse, SuccessResponse } from '../type/response.js';
 
-export const editComment = async (r, s) => {
-  // TODO : EDIT COMMENT LOGIC
+export const editGoal = async (r, s) => {
   const { response, request } = new ExpressTypeIntecepter(r, s).get();
   const { userId } = response.locals;
   const { text, commentId } = request.body;

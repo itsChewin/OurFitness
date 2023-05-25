@@ -3,15 +3,15 @@ import { welcome } from './routes/welcome.js';
 import { PrismaClient } from '@prisma/client';
 import { login } from './routes/login.js';
 import { register } from './routes/register.js';
-import { getAllNotes } from './routes/getAllNotes.js';
-import { getNoteById } from './routes/getNoteById.js';
-import { editNote } from './routes/editNote.js';
-import { createNote } from './routes/createNote.js';
-import { deleteNote } from './routes/deleteNote.js';
-import { getAllComments } from './routes/getAllComments.js';
-import { createComment } from './routes/createComment.js';
-import { editComment } from './routes/editComment.js';
-import { deleteComment } from './routes/deleteComment.js';
+import { getAllRoutines } from './routes/getAllRoutines.js';
+import { getRoutineById } from './routes/getRoutineById.js';
+import { editRoutine } from './routes/editRoutine.js';
+import { createRoutine } from './routes/createRoutine.js';
+import { deleteRoutine } from './routes/deleteRoutine.js';
+import { getAllGoals } from './routes/getAllGoals.js';
+import { createGoal } from './routes/createGoal.js';
+import { editGoal } from './routes/editGoal.js';
+import { deleteGoal } from './routes/deleteGoal.js';
 import { getUser } from './routes/getUser.js';
 import { ErrorResponse } from './type/response.js';
 import cors from 'cors';
@@ -61,23 +61,23 @@ app.use((req, res, next) => {
 
 app.get('/me', getUser);
 
-app.get('/notes', getAllNotes);
+app.get('/notes', getAllRoutines);
 
-app.get('/note/:noteId', getNoteById);
+app.get('/note/:noteId', getRoutineById);
 
-app.patch('/note', editNote);
+app.patch('/note', editRoutine);
 
-app.post('/note', createNote);
+app.post('/note', createRoutine);
 
-app.delete('/note/:noteId', deleteNote);
+app.delete('/note/:noteId', deleteRoutine);
 
-app.get('/comment', getAllComments);
+app.get('/comment', getAllGoals);
 
-app.post('/comment', createComment);
+app.post('/comment', createGoal);
 
-app.patch('/comment', editComment);
+app.patch('/comment', editGoal);
 
-app.delete('/comment', deleteComment);
+app.delete('/comment', deleteGoal);
 
 app.listen('8000', () => {
   console.log('App is listenning on http://localhost:8000 ');

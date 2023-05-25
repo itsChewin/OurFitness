@@ -85,7 +85,7 @@ const GoalsCard = ({ comment = { id: -1, msg: '' }, setComments = () => { } }) =
   };
 
   return (
-    <Card sx={{ p: '1rem', m: '0.5rem', display: 'flex', gap: '0.5rem', alignItems: 'center' , backgroundColor: '#EA5455'}}>
+    <Card sx={{ p: '1rem', m: '0.5rem', display: 'flex', gap: '0.5rem', alignItems: 'center' , backgroundColor: '#002B5B'}}>
       {!(isConfirm && functionMode == 'update') ? (
         <Typography sx={{ flex: 1 , color: 'white'}}>{comment.msg}</Typography>
       ) : (

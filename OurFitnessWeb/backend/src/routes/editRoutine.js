@@ -2,7 +2,7 @@ import { ExpressTypeIntecepter } from '../services/ExpressTypeService.js';
 import { getPrisma, handlePrismaError } from '../services/PrismaService.js';
 import { SuccessResponse } from '../type/response.js';
 
-export const editNote = async (r, s) => {
+export const editRoutine = async (r, s) => {
   const { response, request } = new ExpressTypeIntecepter(r, s).get();
   const { title, description, noteId } = request.body;
 

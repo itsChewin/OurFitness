@@ -2,8 +2,7 @@ import { ExpressTypeIntecepter } from '../services/ExpressTypeService.js';
 import { getPrisma, handlePrismaError } from '../services/PrismaService.js';
 import { ErrorResponse, SuccessResponse } from '../type/response.js';
 
-export const deleteComment = async (r, s) => {
-  // TODO : DELETE COMMENT LOGIC
+export const deleteGoal = async (r, s) => {
   const { response, request } = new ExpressTypeIntecepter(r, s).get();
   const { userId } = response.locals;
   const { commentId } = request.body;
