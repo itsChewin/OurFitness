@@ -1,11 +1,23 @@
-import { useEffect, useState, useContext } from 'react';
-import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField } from '@mui/material';
-import GlobalContext from '../../../share/Context/GlobalContext';
-import { AxiosError } from 'axios';
-import Cookies from 'js-cookie';
-import Axios from '../../../share/AxiosInstance';
+import { useEffect, useState, useContext } from "react";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+  TextField,
+} from "@mui/material";
+import GlobalContext from "../../../share/Context/GlobalContext";
+import { AxiosError } from "axios";
+import Cookies from "js-cookie";
+import Axios from "../../../share/AxiosInstance";
 
-const RoutineEditModal = ({ note = {}, open = false, handleClose = () => {}, setNotes = () => {} }) => {
+const RoutineEditModal = ({
+  note = {},
+  open = false,
+  handleClose = () => {},
+  setNotes = () => {},
+}) => {
   const [newNote, setNewNote] = useState(note);
   const [error, setError] = useState({});
   const { setStatus } = useContext(GlobalContext);
@@ -16,20 +28,20 @@ const RoutineEditModal = ({ note = {}, open = false, handleClose = () => {}, set
 
   const validateForm = () => {
     const error = {};
-    if(!newNote.title) error.title = 'Title is required';
-    if(!newNote.description) error.description = 'Description is required';
+    if (!newNote.title) error.title = "Title is required";
+    if (!newNote.description) error.description = "Description is required";
     setError(error);
 
-    if(Object.keys(error).length) return false;
+    if (Object.keys(error).length) return false;
     return true;
-  }
+  };
 
   const submit = async () => {
-    if(!validateForm()) return;
-    try{
-      const userToken = Cookies.get('UserToken');
+    if (!validateForm()) return;
+    try {
+      const userToken = Cookies.get("UserToken");
       const response = await Axios.patch(
-        '/note',
+        "/note",
         {
           title: newNote.title,
           description: newNote.description,
@@ -39,16 +51,18 @@ const RoutineEditModal = ({ note = {}, open = false, handleClose = () => {}, set
           headers: { Authorization: `Bearer ${userToken}` },
         }
       );
-        if(response.data.success){
-          setStatus({severity: 'success', msg: 'Update routine successfully'});
-          setNotes((prev) => prev.map((n) => (n.id === newNote.id ? response.data.data : n)));
-          resetAndClose();
-        }
-    }catch(error){
-      if(error instanceof AxiosError && error.response){
-        setStatus({severity: 'error', msg: error.response.data.error});
-      }else{
-        setStatus({severity: 'error', msg: error.message});
+      if (response.data.success) {
+        setStatus({ severity: "success", msg: "Update routine successfully" });
+        setNotes((prev) =>
+          prev.map((n) => (n.id === newNote.id ? response.data.data : n))
+        );
+        resetAndClose();
+      }
+    } catch (error) {
+      if (error instanceof AxiosError && error.response) {
+        setStatus({ severity: "error", msg: error.response.data.error });
+      } else {
+        setStatus({ severity: "error", msg: error.message });
       }
     }
   };
@@ -85,7 +99,7 @@ const RoutineEditModal = ({ note = {}, open = false, handleClose = () => {}, set
           error={!!error.title}
           helperText={error.title}
         />
-        
+
         <TextField
           required
           multiline
@@ -102,10 +116,18 @@ const RoutineEditModal = ({ note = {}, open = false, handleClose = () => {}, set
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={resetAndClose} color="error" sx={{ textTransform: 'capitalize' }}>
+        <Button
+          onClick={resetAndClose}
+          color="error"
+          sx={{ textTransform: "capitalize" }}
+        >
           Cancel
         </Button>
-        <Button onClick={submit} type="submit" sx={{ textTransform: 'capitalize' }}>
+        <Button
+          onClick={submit}
+          type="submit"
+          sx={{ textTransform: "capitalize" }}
+        >
           Update
         </Button>
       </DialogActions>

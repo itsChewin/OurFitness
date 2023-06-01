@@ -7,16 +7,17 @@ import {
   CardContent,
   CardMedia,
   Box,
+  useTheme,
 } from "@mui/material";
 import imageSrc from "../../assets/Strongman.jpg";
 import imageSrc1 from "../../assets/peoplecycling.jpg";
 import imageSrc2 from "../../assets/weightexercise.jpg";
 import imageSrc3 from "../../assets/fitnessman.jpg";
-import '../../App.css'
-
-
+import "../../App.css";
 
 function Home() {
+  const theme = useTheme();
+
   return (
     <>
       <Box position="relative">
@@ -30,46 +31,57 @@ function Home() {
           top={0}
           left={0}
           width="100%"
-          height="100%"
+          height="95%"
           display="flex"
           alignItems="center"
           justifyContent="center"
           bgcolor="rgba(0, 0, 0, 0.5)"
+          padding="20px"
         >
           <Typography
             variant="h1"
             component="h1"
             color="white"
-            sx={{ fontWeight: "bold" }}
+            sx={{
+              fontWeight: "bold",
+              fontSize: "4rem",
+              textAlign: "center",
+            }}
           >
             "OurFitness"
           </Typography>
         </Box>
       </Box>
 
-      <Container>
+      <Container sx={{ marginBottom: "150px" }}>
         <Typography
           variant="h2"
           component="h1"
           align="center"
-          paddingTop={"50px"}
-          sx={{ fontWeight: "bold" }}
+          paddingTop={theme.breakpoints.up("sm")}
+          sx={{ fontWeight: "bold", margin: "50px" }}
         >
           Welcome to Our Website
         </Typography>
-        <Typography variant="h6" component="p" align="center" paddingY={"50px"}>
-          We are the web app that can help you to tracking you workout. We
-          allows users to set goals and track your process.
+        <Typography
+          variant="h6"
+          component="p"
+          align="center"
+          paddingY={theme.breakpoints.up("sm")}
+          sx={{ margin: "50px" }}
+        >
+          We are the web app that can help you reminder your workout. We allow
+          users to set goals to see their progress.
         </Typography>
 
-
-        <Grid container spacing={2} marginBottom={'100px'}>
+        <Grid container spacing={4} marginBottom={theme.spacing(8)}>
           <Grid item xs={12} sm={6} md={4}>
             <Card>
               <CardMedia
                 component="img"
                 alt="Image"
-                height="200"
+                width="250px"
+                height="250px"
                 image={imageSrc1}
               />
               <CardContent>
@@ -77,18 +89,20 @@ function Home() {
                   Set Routine
                 </Typography>
                 <Typography variant="body2" component="p">
-                  create a personalized workout routine by selecting the types
-                  of exercises
+                  Set a personalized workout routine by creating a note to
+                  remind the exercises routine.
                 </Typography>
               </CardContent>
             </Card>
           </Grid>
+
           <Grid item xs={12} sm={6} md={4}>
             <Card>
               <CardMedia
                 component="img"
                 alt="Image"
-                height="200"
+                width="250px"
+                height="250px"
                 image={imageSrc2}
               />
               <CardContent>
@@ -96,18 +110,20 @@ function Home() {
                   Set Goals
                 </Typography>
                 <Typography variant="body2" component="p">
-                  set specific fitness goals, such as running a certain distance
+                  Set specific fitness goals, such as running a certain distance
                   or lifting a particular weight.
                 </Typography>
               </CardContent>
             </Card>
           </Grid>
+
           <Grid item xs={12} sm={6} md={4}>
             <Card>
               <CardMedia
                 component="img"
                 alt="Image"
-                height="200"
+                width="250px"
+                height="250px"
                 image={imageSrc3}
               />
               <CardContent>
@@ -122,7 +138,6 @@ function Home() {
             </Card>
           </Grid>
         </Grid>
-
       </Container>
     </>
   );

@@ -1,33 +1,35 @@
-import { Box, Button, Card, Modal, TextField } from '@mui/material';
-import React, { useState, useEffect, useContext } from 'react';
-import { useKeyDown } from '../../../hooks/useKeyDown';
-import GoalsCard from './components/GoalsCard';
-import Axios from '../../AxiosInstance';
-import GlobalContext from '../../Context/GlobalContext';
-import Cookies from 'js-cookie';
-import { AxiosError } from 'axios';
+import { Box, Button, Card, Modal, TextField } from "@mui/material";
+import React, { useState, useEffect, useContext } from "react";
+import { useKeyDown } from "../../../hooks/useKeyDown";
+import GoalsCard from "./components/GoalsCard";
+import Axios from "../../AxiosInstance";
+import GlobalContext from "../../Context/GlobalContext";
+import Cookies from "js-cookie";
+import { AxiosError } from "axios";
 
 const GoalsModal = ({ open = false, handleClose = () => {} }) => {
   const { setStatus } = useContext(GlobalContext);
-  const [textField, setTextField] = useState('');
-  const [textFieldError, setTextFieldError] = useState('');
+  const [textField, setTextField] = useState("");
+  const [textFieldError, setTextFieldError] = useState("");
   const [comments, setComments] = useState([]);
 
   useKeyDown(() => {
     handleAddComment();
-  }, ['Enter']);
+  }, ["Enter"]);
 
   useEffect(() => {
-    const userToken = Cookies.get('UserToken');
-    if (userToken !== undefined && userToken !== 'undefined') {
-      Axios.get('/comment', { headers: { Authorization: `Bearer ${userToken}` } })
+    const userToken = Cookies.get("UserToken");
+    if (userToken !== undefined && userToken !== "undefined") {
+      Axios.get("/comment", {
+        headers: { Authorization: `Bearer ${userToken}` },
+      })
         .then((res) => {
           setComments(res.data.data.map((el) => ({ id: el.id, msg: el.text })));
         })
         .catch((error) => {
           setStatus({
-            msg: error.message || 'Failed to fetch goals',
-            severity: 'error',
+            msg: error.message || "Failed to fetch goals",
+            severity: "error",
           });
         });
     }
@@ -36,30 +38,33 @@ const GoalsModal = ({ open = false, handleClose = () => {} }) => {
   const handleAddComment = async () => {
     if (!validateForm()) return;
     try {
-      const userToken = Cookies.get('UserToken');
+      const userToken = Cookies.get("UserToken");
       const response = await Axios.post(
-        '/comment',
+        "/comment",
         { text: textField },
         {
           headers: { Authorization: `Bearer ${userToken}` },
         }
       );
       if (response.data.success) {
-        setStatus({ severity: 'success', msg: 'Set goals successfully' });
-        setComments((prevComments) => [...prevComments, { id: response.data.data.id, msg: textField }]);
-        setTextField('');
+        setStatus({ severity: "success", msg: "Set goals successfully" });
+        setComments((prevComments) => [
+          ...prevComments,
+          { id: response.data.data.id, msg: textField },
+        ]);
+        setTextField("");
       }
     } catch (error) {
-      setTextField('');
+      setTextField("");
       if (error instanceof AxiosError && error.response) {
         setStatus({
-          msg: error.response.data.error || 'Failed to set goals',
-          severity: 'error',
+          msg: error.response.data.error || "Failed to set goals",
+          severity: "error",
         });
       } else {
         setStatus({
-          msg: error.message || 'Failed to set goals',
-          severity: 'error',
+          msg: error.message || "Failed to set goals",
+          severity: "error",
         });
       }
     }
@@ -67,10 +72,10 @@ const GoalsModal = ({ open = false, handleClose = () => {} }) => {
 
   const validateForm = () => {
     if (!textField) {
-      setTextFieldError('Goals is required');
+      setTextFieldError("Goals is required");
       return false;
     }
-    setTextFieldError('');
+    setTextFieldError("");
     return true;
   };
 
@@ -78,50 +83,53 @@ const GoalsModal = ({ open = false, handleClose = () => {} }) => {
     <Modal open={open} onClose={handleClose}>
       <Card
         sx={{
-          width: { xs: '60vw', lg: '40vw' },
-          maxWidth: '600px',
-          maxHeight: '400px',
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          borderRadius: '16px',
-          backgroundColor: '#F9F5EB',
-          p: '2rem',
+          width: { xs: "60vw", lg: "40vw" },
+          maxWidth: "600px",
+          maxHeight: "400px",
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          borderRadius: "16px",
+          backgroundColor: "#F9F5EB",
+          p: "2rem",
         }}
       >
         <Box
           sx={{
-            display: 'flex',
+            display: "flex",
           }}
         >
           <TextField
-            
             value={textField}
             onChange={(e) => setTextField(e.target.value)}
             fullWidth
-            error={textFieldError !== ''}
+            error={textFieldError !== ""}
             helperText={textFieldError}
             placeholder="Set your goals"
             variant="standard"
           />
-          <Button onClick={handleAddComment} >Set</Button>
+          <Button onClick={handleAddComment}>Set</Button>
         </Box>
         <Box
           sx={{
-            overflowY: 'scroll',
-            maxHeight: 'calc(400px - 2rem)',
-            '&::-webkit-scrollbar': {
-              width: '.5rem',
+            overflowY: "scroll",
+            maxHeight: "calc(400px - 2rem)",
+            "&::-webkit-scrollbar": {
+              width: ".5rem",
             },
-            '&::-webkit-scrollbar-thumb': {
-              background: '#999999',
-              borderRadius: '10px',
+            "&::-webkit-scrollbar-thumb": {
+              background: "#999999",
+              borderRadius: "10px",
             },
           }}
         >
           {comments.map((comment) => (
-            <GoalsCard comment={comment} key={comment.id} setComments={setComments} />
+            <GoalsCard
+              comment={comment}
+              key={comment.id}
+              setComments={setComments}
+            />
           ))}
         </Box>
       </Card>

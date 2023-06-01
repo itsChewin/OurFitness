@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
-import { Alert, Snackbar } from '@mui/material';
+import { Alert, Snackbar } from "@mui/material";
 
 export default function SnackBarMessage({ message, severity }) {
   const [open, setOpen] = React.useState(true);
   function handleClose(event, reason) {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setOpen(false);
@@ -15,18 +15,18 @@ export default function SnackBarMessage({ message, severity }) {
     <div>
       <Snackbar
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
         open={open}
         autoHideDuration={2000}
         onClose={handleClose}
         variant="warning"
         ContentProps={{
-          'aria-describedby': 'message-id',
+          "aria-describedby": "message-id",
         }}
       >
-        <Alert severity={severity} onClose={handleClose} sx={{ width: '100%' }}>
+        <Alert severity={severity} onClose={handleClose} sx={{ width: "100%" }}>
           {message}
         </Alert>
       </Snackbar>
