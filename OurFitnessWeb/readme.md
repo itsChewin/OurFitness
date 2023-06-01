@@ -13,6 +13,14 @@ Backtend -> ourfitnessweb/backend
     npm run dev
 ```
 
+### All of the responses will be wrapped with this data before sending
+
+| Parameter |  Type   | Description              |
+| --------- | :-----: | :----------------------- |
+| success   | boolean | the status of request    |
+| msg       | string  | message for each request |
+| data      |  JSON   | the actual data          |
+
 ## API endpoints
 
 ### Login
